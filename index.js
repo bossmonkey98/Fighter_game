@@ -7,20 +7,35 @@ canvas.height = 800;
 c.fillRect(0,0,canvas.width,canvas.height)
 let gravity = 0.7
 class Sprite {
-    constructor({position , velocity}){
+    constructor({position , velocity,color}){
     this.position = position;
     this.velocity=velocity;
+    this.color = color;
     this.height = 150;
+    this.lastKey
+    this.attackBox = {
+        position:this.position,
+        height:50,
+        width:100
+    }
 }
 draw(){
-    c.fillStyle="red"
+    c.fillStyle=this.color
     c.fillRect(this.position.x,this.position.y,50,this.height)
+
+    c.fillStyle="green"
+    c.fillRect(
+        this.attackBox.position.x,
+        this.attackBox.position.y,
+        this.attackBox.width,
+        this.attackBox.height
+    )
 }
 update(){
     this.draw()
     this.position.x += this.velocity.x
     this.position.y += this.velocity.y 
-    this.lastKey
+    
     
     if(this.position.y + this.height + this.velocity.y >=canvas.height){
         this.velocity.y = 0
@@ -30,22 +45,22 @@ update(){
 }
 
 const player = new Sprite ({position:{
-    x:0,
+    x:20,
     y:0
 },
 velocity:{
     x:0,
     y:0
-}})
+},color:"red"})
 
 const enemy = new Sprite ({position:{
-    x:200,
+    x:400,
     y:300,
 },
 velocity:{
     x:0,
     y:0
-}})
+},color:'blue'})
 
 
 let keys = {
@@ -73,8 +88,6 @@ const animate = ()=>{
 }
 
 animate()
-
-
 
 window.addEventListener('keydown',(e)=>{
 switch(e.key){
@@ -117,4 +130,5 @@ window.addEventListener('keyup',(e)=>{
 
     }
 })
+
 
